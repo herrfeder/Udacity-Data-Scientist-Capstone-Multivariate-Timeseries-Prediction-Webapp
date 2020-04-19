@@ -22,9 +22,9 @@ import plotly.graph_objs as go
 #from sklearn.preprocessing import MinMaxScaler
 #from sklearn.metrics import mean_squared_error, r2_score
 
-import plot_helper as ph
-import data_prep_helper
-import conclusion_texts
+import app.plot_helper as ph
+import app.data_prep_helper
+import app.conclusion_texts
 import locale
 
 locale.setlocale( locale.LC_ALL, '' )
