@@ -15,7 +15,7 @@ import plotly.graph_objs as go
 
 import app.plot_helper as ph
 import app.data_prep_helper as dh
-import app.conclusion_texts
+import app.conclusion_texts as conclusion_texts
 import locale
 
 locale.setlocale( locale.LC_ALL, '' )
