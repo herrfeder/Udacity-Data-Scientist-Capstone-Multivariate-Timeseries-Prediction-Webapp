@@ -351,7 +351,7 @@ def plot_val_heatmap(df, title="", height=1000, colormap="viridis", colorbar="Co
             "y": index, 
             "z": coordinates,
             "colorscale": colormap,
-            "colorbar": {"title": "P-Value"}
+            "colorbar": {"title": colorbar}
             }
 
     data = trace1
@@ -360,36 +360,30 @@ def plot_val_heatmap(df, title="", height=1000, colormap="viridis", colorbar="Co
     fig = go.Figure(dict(data=data, layout=layout))
     
     if dash:
-        return apply_layout(fig, title, height=800)
+        return apply_layout(fig, title, height)
     else:
         fig.show()
         
         
-def return_shift_corr(do, fixed="bitcoin_Price", shift=-30, output="multi",dash=False, cols=""):
+def return_shift_corr(corr, fixed="bitcoin_Price", output="multi", dash=False):
     '''
     
     INPUT:
-        do - (ShiftChartData Object) Object of class to run function here
-        fixed - (str) Column to fix on shifting for correlation
-        shift - (int) Number of days to shift the unfixed columns for
+        corr - (DataFrame) DataFrame with Correlation Matrix Content
         output - (str) on "multi" complete Correlation Heatmap will be returned
                  on "single" only row for fixed Column will be returned
         dash - (bool) On True, will return Figure with Web App specific layout
                On False, will return plain figure
-        cols - (list of str) do Correlation Matrix for specific subset of columns
     OUTPUT:
         figure - (plotly Figure) will run the Shifted Correlation through another function for applying to heatmap
     '''
     
-    do.fixed_cols = fixed
-    shift_df = do.single_shift(shift, cols)
-    corr = shift_df.corr()
     
     if output=="single":
         corr = corr[corr.index == fixed]
-        return plot_val_heatmap(corr, height=200, dash=True)
+        return plot_val_heatmap(corr, height=400, dash=True)
     else:
-        return plot_val_heatmap(corr, dash=True)
+        return plot_val_heatmap(corr, height=800,dash=True)
     
 
 def return_granger_plot(df_path, title="", height=1000, colormap="viridis",dash=False):

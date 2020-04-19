@@ -336,14 +336,7 @@ CORR_02_CHART_PLOT = [dbc.CardHeader(html.H5("Correlation Matrix with User-Defin
                                             style={"background-color": "#073642", "border-radius": "0.3rem"}),
                                 
                                           dcc.Loading(
-                                              dcc.Graph(id="corr_shift_matrix_plot",
-                                                        figure=ph.return_shift_corr(do_big, 
-                                                                                    "bitcoin_Price", 
-                                                                                    -30, 
-                                                                                    output="single",
-                                                                                    dash=True, 
-                                                                                    cols=small_col_set))
-                                              
+                                              dcc.Graph(id="corr_shift_matrix_plot")   
                                           )             
                             ])
                         )
@@ -582,19 +575,19 @@ GRU_WINDOW_SLIDER = dcc.Slider(
 
 
 
-INPUT_BUDGET = [dbc.CardHeader(dbc.Row([html.P("START BUDGET")]),style={"height":"20px"}),
+INPUT_BUDGET = [dbc.CardHeader(dbc.Row([html.P("START BUDGET")]),style={"height":"40px"}),
                    dbc.Spinner(color="info", children=[dbc.CardBody(html.Div(id="input_budget"), style={"height":"130px",
                                                                          "background-color":"#073642"})])]
 
-MAX_BUDGET = [dbc.CardHeader(dbc.Row([html.P("MAX BUDGET")]),style={"height":"20px"}),
+MAX_BUDGET = [dbc.CardHeader(dbc.Row([html.P("MAX BUDGET")]),style={"height":"40px"}),
                    dbc.Spinner(color="info", children=[dbc.CardBody(html.Div(id="max_budget"), style={"height":"130px",
                                                                          "background-color":"#073642"})])]
 
-MIN_BUDGET = [dbc.CardHeader(dbc.Row([html.P("MIN BUDGET")]),style={"height":"20px"}),
+MIN_BUDGET = [dbc.CardHeader(dbc.Row([html.P("MIN BUDGET")]),style={"height":"40px"}),
                    dbc.Spinner(color="info", children=[dbc.CardBody(html.Div(id="min_budget"), style={"height":"130px",
                                                                          "background-color":"#073642"})])]
 
-PROFIT_BUDGET = [dbc.CardHeader(dbc.Row([html.P("PROFIT")]),style={"height":"20px"}),
+PROFIT_BUDGET = [dbc.CardHeader(dbc.Row([html.P("PROFIT")]),style={"height":"40px"}),
                    dbc.Spinner(color="info", children=[dbc.CardBody(html.Div(id="profit_budget"), style={"height":"130px",
                                                                          "background-color":"#073642"})])]
 
@@ -1053,7 +1046,13 @@ def ret_corr_shift_plot(n, dropdown, slider):
     Returns correlation heatmap with shifted timeseries and will be updated by 
     triggering dropdown to choose fixed timeseries and slider to choose shift of other timeseries
     '''
-    return ph.return_shift_corr(do_big, dropdown, slider, output="single",dash=True, cols=small_col_set)
+    
+    small_set_copy = small_col_set.copy()
+    do_big.fixed_cols = dropdown
+    shift_df = do_big.single_shift(slider, small_set_copy)
+    corr = shift_df.corr()
+    
+    return ph.return_shift_corr(corr, fixed=dropdown, output="single", dash=True)
     
     
 
