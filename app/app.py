@@ -12,18 +12,9 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 import plotly.graph_objs as go
-#import tensorflow
-#tensorflow.random.set_seed(2)
-#from keras.models import Sequential, load_model
-#from keras.layers.core import Dense
-#from keras.layers.recurrent import GRU
-#from keras import optimizers
-#from keras.callbacks import EarlyStopping
-#from sklearn.preprocessing import MinMaxScaler
-#from sklearn.metrics import mean_squared_error, r2_score
 
 import app.plot_helper as ph
-import app.data_prep_helper
+import app.data_prep_helper as dh
 import app.conclusion_texts
 import locale
 
@@ -37,7 +28,7 @@ from plotly import tools
 APP_PATH = pathlib.Path(__file__).parent.resolve()
 
 # prepare the DataSet with all Input Time Series
-do_big = data_prep_helper.ModelData(chart_col=["Price", "High", "Low", "Price_norm"])
+do_big = dh.ModelData(chart_col=["Price", "High", "Low", "Price_norm"])
 
 # smaller subset of columns for some visualisation use cases
 small_col_set = ['bitcoin_Price', 'sp500_Price', 'dax_Price', 'googl_Price',
