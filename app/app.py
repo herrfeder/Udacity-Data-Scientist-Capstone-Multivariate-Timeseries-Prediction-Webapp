@@ -407,9 +407,9 @@ MODEL_SARIMAX_EVAL = [dbc.CardHeader(html.H5("Model SARIMAX Cross Validation")),
                      dbc.CardBody(
                          html.Div(children=[dbc.Row( 
                                              html.Div(
-                                                 dcc.Markdown("Used Features:\n\n  * {}".format("\n  * ".join(do_big.opt_ari_feat),
-                                                              style={"padding-left":20, "padding": 10}), 
-                                                 id="sarimax_features")),
+                                                 dcc.Markdown("Used Features:\n\n  * {}".format("\n  * ".join(do_big.opt_ari_feat)),
+                                                              style={"padding-left":20, "padding": 10}, 
+                                                              id="sarimax_features")),
                                          
                                             align="center",
                                             style={"background-color": "#073642", "border-radius": "0.3rem"}),
@@ -423,9 +423,9 @@ MODEL_GRU_EVAL = [dbc.CardHeader(html.H5("Model GRU Cross Validation")),
                      dbc.CardBody(
                          html.Div(children=[dbc.Row( 
                                              html.Div(
-                                                 dcc.Markdown("Used Features:\n\n  * {}".format("\n  * ".join(do_big.opt_gru_feat),
-                                                              style={"padding-left":20, "padding": 10}), 
-                                                 id="sarimax_features")),
+                                                 dcc.Markdown("Used Features:\n\n  * {}".format("\n  * ".join(do_big.opt_gru_feat)),
+                                                              style={"padding-left":20, "padding": 10}, 
+                                                              id="gru_features")),
                                          
                                             align="center",
                                             style={"background-color": "#073642", "border-radius": "0.3rem"}),
