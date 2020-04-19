@@ -16,9 +16,6 @@ import plotly.graph_objs as go
 import app.plot_helper as ph
 import app.data_prep_helper as dh
 import app.conclusion_texts as conclusion_texts
-import locale
-
-locale.setlocale( locale.LC_ALL, 'en_US' )
 
 from dash.dependencies import Input, Output, State
 from plotly import tools
@@ -1012,7 +1009,7 @@ def plot_simulation(n_clicks, sim_budget, min_max_dist, num_neigh, gru_window, f
     
     result_df = do_big.simulate_buy_sell(sim_budget, min_max_dist, num_neigh, gru_window ,future_offset_val=31)
     
-    in_budget = html.P("{}".format(locale.currency(sim_budget),grouping=True), style={"font-weight":"bold", "font-size":"25px"})
+    in_budget = html.P("{}".format('${:,.2f}'.format(sim_budget)), style={"font-weight":"bold", "font-size":"25px"})
                        
     max_val = result_df.budget.max()
     min_val = pd.Series(result_df.budget.unique()).nsmallest(2).iloc[-1]
@@ -1024,7 +1021,7 @@ def plot_simulation(n_clicks, sim_budget, min_max_dist, num_neigh, gru_window, f
             color="green"
         else:
             color = "red"
-        cur = locale.currency(val, grouping=True)
+        cur = '${:,.2f}'.format(val)
         output_budgets.append(html.P("{}".format(cur),style={"color":color,"font-weight":"bold", "font-size":"25px"}))
     
                        
