@@ -18,7 +18,7 @@ import app.data_prep_helper as dh
 import app.conclusion_texts as conclusion_texts
 import locale
 
-locale.setlocale( locale.LC_ALL, '' )
+locale.setlocale( locale.LC_ALL, 'en_CA.UTF-8' )
 
 from dash.dependencies import Input, Output, State
 from plotly import tools
