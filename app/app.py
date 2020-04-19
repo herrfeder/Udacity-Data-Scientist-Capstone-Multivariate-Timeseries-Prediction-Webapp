@@ -212,7 +212,7 @@ NAVBAR = dbc.Navbar(
                             dbc.DropdownMenuItem("LinkedIn",
                                         href="https://www.linkedin.com/in/davidlassig/"),
                             dbc.DropdownMenuItem("Github Repo", 
-                                        href="https://github.com/herrfeder/Udacity-Project-Recommendations-With-IBM-Webapp.git"),
+                                        href="https://github.com/herrfeder/Udacity-Data-Scientist-Capstone-Multivariate-Timeseries-Prediction-Webapp.git"),
                           
                         ],
                         nav=False,
@@ -592,7 +592,7 @@ PROFIT_BUDGET = [dbc.CardHeader(dbc.Row([html.P("PROFIT")]),style={"height":"40p
                                                                          "background-color":"#073642"})])]
 
 
-BUY_SELL_SIM = [dbc.CardHeader(html.H5("Bitcoin Buy And Sell Simulation (GRU)")),
+BUY_SELL_SIM = [dbc.CardHeader(html.H5("Bitcoin Buy And Sell Simulation (GRU) between March 2019 - March 2020")),
                         dbc.CardBody( 
                             html.Div(children=[
                                         dbc.Row(children=[

@@ -23,7 +23,8 @@ resources = """
     * https://towardsdatascience.com/illustrated-guide-to-lstms-and-gru-s-a-step-by-step-explanation-44e9eb85bf21
   * Data Preprocessing for Keras GRU:
     * https://github.com/deKeijzer/Multivariate-time-series-models-in-Keras
-  * The GRU Code is inspired and Model Concept is used from there: https://github.com/ninja3697/Stocks-Price-Prediction-using-Multivariate-Analysis/blob/master/Multivatiate-GRU/Multivariate-3-GRU.ipynb
+  * The GRU Code is inspired and Model Concept is used from there: 
+    * https://github.com/ninja3697/Stocks-Price-Prediction-using-Multivariate-Analysis/blob/master/Multivatiate-GRU/Multivariate-3-GRU.ipynb
 """
 
 view_data_conclusion = """
@@ -54,6 +55,15 @@ It's very interesting, as:
   
 It's very interesting as well:
   * The Gold Price isn't correlated with Bitcoin Price in any way
+  
+  
+## Conclusions from Multiple Shifting
+
+The resulting plots are really interesting as it suggests for both Bitcoin Charts and Stock Charts have higher correlation levels with shifted correlated time series
+  * When shifting the other time series into past, the summed correlation is higher with a 14-day shift than without shift
+    * that means the change of the indicators will have it's highest impact on the charts after 14 days
+  * When shifting the other time series to future, thie summed correlation will increase dramatically with a shift of 30 days
+    * that means the change of the charts will have it's highest impact on the other indicators after 30 days
 """
 
 stationarity_causality_conclusion = """
@@ -84,18 +94,35 @@ I will choose the features for my multivariate Time Series Modelling based on th
 model_eval_conclusion= """
 ## SARIMAX Conclusions
 
-Regarding the ranges of my resulting prediction and real plot the resulting RMSE (root-mean-squared-error) value is a good first result and may will be used for prediction and catching good forecasting signals and triggers.
+We can see:
+  * the first split doesn't have enough training data for drawing a reasonable prediction. Nearly the first half of the Bitcoin History is really steady and without volatile movements, therefore the resulting prediction looks like that.
+  * the second split looks better, it's really noisy because of the Google Trend and Sentiment Data (maybe smoothing before) but we can see clearly the trend and the peaks of the real data in our prediction.
+  * the third split shows a even better prediction, whereby some of the volatile movements can be seen in the prediction as well and some are mirrored. I guess this is due to some negative correlations between Sentiments and the Bitcoin Chart.
 
-We can see, that the resulting prediction is very noisy. That's due to the high volatility in the Google Trends and Sentiment Time Series.
+Regarding the ranges of my resulting prediction and real plot the resulting RMSE (root-mean-squared-error) value is a good first result and may will be used for prediction and catching good forecasting signals and triggers.
 
 
 ## GRU Conclusions
 
-
+From my point of view, the second and third split are good enough to give them a try for forecasting. The first splits cross validation looks really poor especially as the error loss for the validate data won't narrow to null. The split between Train and Validate are there at the crucial point in the history of Bitcoin Chart, where it starts to rise extremely and become really volatile. Therefore it cannot fit well.
 """
 
 chances_roadmap ="""
-blubb
+## Result
+
+Wow, it seems we got actually a really good triggering for Buys and Sells of Bitcoin. Actually we can toggle our parameters a bit and it becomes sometimes a bit less but it's really difficult with this algorithm to end with less money than in the beginning of the simulation.
+
+Now it should be tested on more recent data, that means I have to wait a bit and will test it again. 
+
+The model prediction for using time series that are shifted up to a week are pretty accurate. The model prediction for the desired month is far away from beeing accurate but we can see several volatile Chart Movements in forms of signals and triggers before they will happen and that's a nice result.
+
+## Possible Roadmap/Chances
+
+  * Extensive Hyperparameter Optimization: Due to a lack of time, resources and knowledge this was only done rudimentary. I'm sure the models can be improved by that.
+  * Extend Webapp to full realtime Forecasting.
+  * Check more and more different feature time series.
+  * Get a better understanding of Deep Learning RNN's like GRU
+
 """
 
 granger_prob_expl = """
@@ -153,12 +180,7 @@ These notebooks will show my course of action:
 ## Used Data
 
 1. Stock Market Data for the last five years from [Investing.com](https://www.investing.com) for:
-  * Bitcoin
-  * DAX
-  * SP500
-  * Google
-  * Amazon
-  * Alibaba
+  * Bitcoin, DAX, SP500, Google, Amazon, Alibaba
 2. Google Trends for keywords "bitcoin", "cryptocurrency", "ethereum", "trading", "etf" using this notebook 
   * [00_scrape_googletrend.ipynb](https://github.com/herrfeder/DataScientist/blob/master/Project_05_Capstone_Stock_Chart_Analysis/00_scrape_googletrend.ipynb)
 3. Twitter Sentiments for keyword "bitcoin" and "#economy" using notebooks 

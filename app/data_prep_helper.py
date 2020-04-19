@@ -654,7 +654,7 @@ class ShiftChartData(ChartData):
     
     def gen_scaled_train_val_test(self, features, split=""):
         '''
-        Generator for returning multiple shifted splits for SARIMAX Cross Validation.
+        Generator for returning multiple shifted splits for GRU Cross Validation.
         The default arguments are optimized for one split (main model split) to return.
         
         INPUT:
@@ -1156,35 +1156,38 @@ def convert_vol(row, col):
 
 ### OTHER HELPERS ###
 
-def evaluate_model(model, test, timesteps):
+def evaluate_model(model,test,lookback):
     # Function from https://github.com/ninja3697/Stocks-Price-Prediction-using-Multivariate-Analysis/blob/master/Multivatiate-GRU/Multivariate-3-GRU.ipynb
     '''
-    Prepare Test Data for Prediction with GRU Model, predict and calculate
-    error values.
+    Predicts the test data against the fitted GRU model and calculates
+    multiple error values for evaluation.
     
     INPUT:
-        model - (keras GRU model) number of features has to be the same as for training
-        test - (np.array) Input time series to make predictions for
-        timesteps - (int) Timesteps Offset
+        model - (keras GRU model)
+        test - (DataFrame) with the time series test split
+        lookback - (int) Timesteps to look into the past
     OUTPUT:
-        (mse, rmse, r2, Y_test, Y_hat) - (float, float, float, np.array, np.array)
-                                         error values and prediction/true time series
+        mse - (float) mean-squared-error between true and prediction chart
+        rmse - (float) root-mean-squared-error between true and prediction chart
+        r2 - (float) r2 error between true and prediction chart
+        Y_test - (np.array) scaled true chart
+        Y_hat - (np.array) scaled prediction chart
     '''
+    
     X_test = []
     Y_test = []
 
-    for i in range(timesteps,test.shape[0]):
-        X_test.append(test[i-timesteps:i])
+    # Prepare Test Data from Pandas Series to Numpy compliant Matrix 
+    # and split Input DataFrame into Features and Result Vector
+    for i in range(lookback,test.shape[0]):
+        X_test.append(test[i-lookback:i])
         Y_test.append(test[i][0])
     X_test,Y_test = np.array(X_test),np.array(Y_test)
+  
 
-    # predicted time series
     Y_hat = model.predict(X_test)
-    # mean squared error
     mse = mean_squared_error(Y_test,Y_hat)
-    # root mean squared error
     rmse = sqrt(mse)
-    # R2 score
     r2 = r2_score(Y_test,Y_hat)
     return mse, rmse, r2, Y_test, Y_hat
-    
+  

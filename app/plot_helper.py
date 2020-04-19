@@ -370,6 +370,7 @@ def return_shift_corr(corr, fixed="bitcoin_Price", output="multi", dash=False):
     
     INPUT:
         corr - (DataFrame) DataFrame with Correlation Matrix Content
+        fixed - (str) Fixed column that we wan't to see the correlations for
         output - (str) on "multi" complete Correlation Heatmap will be returned
                  on "single" only row for fixed Column will be returned
         dash - (bool) On True, will return Figure with Web App specific layout

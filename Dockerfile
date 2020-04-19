@@ -8,7 +8,7 @@ RUN pip install nltk
 RUN pip install statsmodels
 RUN pip install sklearn
 RUN pip install tensorflow
-RUN pip install tensorflow
+RUN pip install keras
 
 RUN pip install dash
 RUN pip install dash-renderer
@@ -24,10 +24,6 @@ RUN useradd -m datascientist
 USER datascientist
 
 WORKDIR /home/datascientist/
-
-RUN python -m nltk.downloader punkt
-RUN python -m nltk.downloader wordnet
-RUN python -m nltk.downloader stopwords
 
 # have to be edited
 RUN git clone https://github.com/herrfeder/Udacity-Data-Scientist-Capstone-Multivariate-Timeseries-Prediction-Webapp.git
