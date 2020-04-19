@@ -12,8 +12,6 @@ from pandas.tseries.offsets import DateOffset
 from datetime import datetime
 from scipy.signal import argrelextrema
 
-from IPython.core import debugger
-debug = debugger.Pdb().set_trace
 
 
 class ChartData():
